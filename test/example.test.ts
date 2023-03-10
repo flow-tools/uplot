@@ -4,7 +4,7 @@ import { Uplot } from '@root/index'
 
 const slotText = 'Test content'
 const props = {
-  data: [[1, 2, 3]],
+  data: [[1, 2, 3], [1, 2, 3]],
   options: {
     series: [
       {},
