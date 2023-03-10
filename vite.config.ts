@@ -5,9 +5,6 @@ import { defineConfig } from 'vite'
 // https://github.com/qmhc/vite-plugin-dts
 import dtsPlugin from 'vite-plugin-dts'
 
-// https://github.com/sxzz/unplugin-vue-macros
-import VueMacros from 'unplugin-vue-macros/vite'
-
 import * as pkg from './package.json'
 
 const externals = [
@@ -16,14 +13,11 @@ const externals = [
 export default defineConfig({
   plugins: [
     dtsPlugin(),
-    VueMacros({
-      plugins: {
-        vue: Vue({
-          include: [/\.vue$/, /\.md$/],
-          reactivityTransform: true,
-        }),
-      },
+    Vue({
+      include: [/\.vue$/, /\.md$/],
+      reactivityTransform: true,
     }),
+
   ],
   resolve: {
     alias: {

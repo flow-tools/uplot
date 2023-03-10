@@ -1,18 +1,18 @@
 {
-  "name": "ts-bundle-template",
-  "version": "1.0.0",
-  "description": "add description",
+  "name": "@flowtools/uplot",
+  "version": "0.0.1",
+  "description": "Modern vue component for uplot",
   "keywords": [
     "add keywords"
   ],
-  "homepage": "https://github.com/productdevbookcom/ts-bundle-template",
-  "bugs": "https://github.com/productdevbookcom/ts-bundle-template/issues",
+  "homepage": "https://github.com/flow-tools/uplot",
+  "bugs": "https://github.com/flow-tools/uplot",
   "author": "add author",
   "repository": {
     "type": "git",
-    "url": "https://github.com/productdevbookcom/ts-bundle-template.git"
+    "url": "https://github.com/flow-tools/uplot.git"
   },
-  "funding": "https://github.com/sponsors/productdevbook",
+  "funding": "https://github.com/sponsors/flow-tools",
   "engines": {
     "node": ">=16"
   },
@@ -43,21 +43,24 @@
   },
   "license": "MIT",
   "peerDependencies": {
+    "@vueuse/core": "^9.13.0",
+    "uplot": "^1.6.24",
     "vue": "=>3.2.47"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.36.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitest/coverage-c8": "^0.29.2",
-    "@vue-macros/volar": "^0.8.4",
-    "@vue/test-utils": "^2.3.0",
+    "@vue/test-utils": "^2.3.1",
+    "@vueuse/core": "^9.13.0",
     "bumpp": "^9.0.0",
     "eslint": "^8.35.0",
     "jsdom": "^21.1.0",
     "typescript": "^4.9.5",
-    "unplugin-vue-macros": "^1.9.1",
+    "uplot": "^1.6.24",
+    "vi-canvas-mock": "^1.0.0",
     "vite": "^4.1.4",
-    "vite-plugin-dts": "^2.0.2",
+    "vite-plugin-dts": "^2.1.0",
     "vitest": "^0.29.2",
     "vue": "^3.2.47"
   },

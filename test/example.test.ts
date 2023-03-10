@@ -1,37 +1,38 @@
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { Button } from '@root/index'
+import { Uplot } from '@root/index'
 
 const slotText = 'Test content'
+const props = {
+  data: [[1, 2, 3]],
+  options: {
+    series: [
+      {},
+      {},
+    ],
+  },
+}
 
-describe('button', () => {
-  test('alert render', () => {
-    const wrapper = mount(Button, {
+describe('Uplot', () => {
+  test('header render', () => {
+    const wrapper = mount(Uplot, {
+      props,
       slots: {
-        default: slotText,
+        header: slotText,
       },
     })
 
     expect(wrapper.text()).toBe(slotText)
   })
 
-  test('loading', () => {
-    const wrapper = mount(Button, {
-      props: {
-        loading: true,
+  test('footer render', () => {
+    const wrapper = mount(Uplot, {
+      props,
+      slots: {
+        footer: slotText,
       },
     })
 
-    expect(wrapper.html()).toMatchSnapshot()
-  })
-
-  test('disabled', () => {
-    const wrapper = mount(Button, {
-      props: {
-        disabled: true,
-      },
-    })
-
-    expect(wrapper.html()).toMatchSnapshot()
+    expect(wrapper.text()).toBe(slotText)
   })
 })

@@ -22,8 +22,7 @@
         "strictNullChecks": true,
         "types": [
             "vue",
-            "vite/client",
-            "unplugin-vue-macros/macros-global"
+            "vite/client"
         ],
         "paths": {
             "@root/*": [
@@ -33,8 +32,6 @@
     },
     "vueCompilerOptions": {
         "plugins": [
-            "@vue-macros/volar/define-model",
-            "@vue-macros/volar/define-slots"
         ]
     },
     "include": [
