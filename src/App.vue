@@ -65,7 +65,7 @@ const thePlot = ref(null)
 </script>
 
 <template>
-  <div class="container">
+  <div class="container mb-5">
     <div class="row">
       <div class="col-auto border">
         <textarea id="" name="" class="resize" />
@@ -115,7 +115,7 @@ const thePlot = ref(null)
     <button class="btn btn-primary" @click="zoom = [(zoom[0] || 0) + 24 * 60 * 60, (zoom[1] || 0) - 24 * 60 * 60]">
       zoom
     </button>
-    <div class="resize">
+    <div class="resize" style="height: 400px;">
       <Uplot :options="options" :data="data" />
     </div>
   </div>
@@ -130,7 +130,6 @@ const thePlot = ref(null)
   padding: 1em;
   min-width: 300px;
   min-height: 300px;
-  /* display: flex; */
 
 }
 </style>
