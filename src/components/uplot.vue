@@ -34,6 +34,7 @@ const emit = defineEmits<{
   (e: 'select', select: Uplot.Select): void
   (e: 'cursor', cursor: Uplot.Cursor): void
   (e: 'update:zoom', zoom: number[]): void
+  (e: 'update:series', series: Serie[]): void
 }>()
 const el = ref<HTMLElement>()
 const { width, height } = useElementSize(el)
@@ -51,7 +52,8 @@ const internalOptions: Omit<Options, 'series'> = {
   hooks: {
     init: [
       (u) => {
-        console.log('init', u)
+        if (props.showDebug)
+          console.log('init', u)
         // debugger
         series.value = u.series.map((s, i) => ({
           label: s.label,
@@ -82,7 +84,8 @@ const internalOptions: Omit<Options, 'series'> = {
     setSelect: [
       (u) => {
         emit('select', u.select)
-        console.log('setSelect', u.select)
+        if (props.showDebug)
+          console.log('setSelect', u.select)
         zoom.value = [
           u.posToVal(u.select.left, 'x'),
           u.posToVal(u.select.left + u.select.width, 'x'),
@@ -137,7 +140,8 @@ watch(props.data, (newValue) => {
 })
 
 watch(props.options, (newValue, oldValue) => {
-  console.log('watch options', newValue, oldValue)
+  if (props.showDebug)
+    console.log('watch options', newValue, oldValue)
   createUPlot()
 })
 
@@ -155,7 +159,8 @@ function resize() {
   // console.log('resize', newHeight)
 
   plot.setSize({ width: width.value, height: height.value })
-  console.log('resize', plot)
+  if (props.showDebug)
+    console.log('resize', plot)
 }
 
 function toggleShow(idx: number) {
@@ -194,7 +199,7 @@ defineExpose({ toggleShow })
 .__uplot {
 
   flex: 1 1 auto;
-  min-height: 70px;
+  min-height: 120px;
   position: relative;
 }
 .__uplot-root {
