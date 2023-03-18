@@ -7,7 +7,7 @@
 ## usage
 
 ```shell
-pnpm add @flowtools/uplot
+pnpm add @flowtools/uplot uplot @vueuse/core
 ```
 
 ## Usage
