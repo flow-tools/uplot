@@ -1,48 +1,67 @@
-# Vue Typescript Bundle Template
+# Vue 3 uplot that is responsive
 
-![Vue Typescript Bundle Template](https://github.com/productdevbookcom/assets/blob/main/vue-ts-bundle-template.jpg?raw=true)
+## Demo
 
+[StackBlitz](https://stackblitz.com/edit/vitejs-vite-dhtmxj?file=src/App.vue)
 
-This is a template for creating a Typescript bundle. It is based on the [Typescript](https://www.typescriptlang.org/) compiler with the [Vite](https://vitejs.dev/) bundler.
+## usage
 
-## Features
-
-- [x] [Typescript](https://www.typescriptlang.org/)
-- [x] [Vite](https://vitejs.dev/)
-- [x] [Vue](https://vuejs.org/)
-- [x] [Vue Macros](https://github.com/sxzz/unplugin-vue-macros)
-- [x] [ESLint](https://eslint.org/) with [Antfu's ESLint Config](https://github.com/antfu/eslint-config)
-- [x] [Bumpp](https://github.com/antfu/bumpp) github changelog generator
-- [x] [Vitest](https://vitest.dev/)
-- [x] [Pnpm](https://pnpm.io/)
-- [x] [GitHub Actions]()
-- [x] [NPM Local Registry]()
-- [x] [Renovate]()
-
+```shell
+pnpm add @flowtools/uplot
+```
 
 ## Usage
 
-1. To use this template, click the "Use this template" button above.
-2. Clone the repository to your local machine.
-3. Run `pnpm install` to install the dependencies.
-4. Run `pnpm build` to build the bundle.
-5. Run `pnpm start` to start the bundle.
-6. Run `pnpm lint` to lint the code. (You can also run `pnpm lint:fix` to fix the linting errors.)
-7. Run `pnpm test` to run the tests. (You can also run `pnpm test:watch` to run the tests in watch mode.)
-8. Run `pnpm release` to bump the version. Terminal will ask you to select the version type. And then it will automatically commit and push the changes. GitHub Actions will automatically publish git tags. NPM local registry will automatically publish the package.
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { AlignedData, Options } from '@flowtools/uplot'
+import { Uplot } from '@flowtools/uplot'
 
-## Configuration
+const options = ref<Options>({
+  series: [
+    {},
+    { label: 's1', stroke: 'red' },
+    { label: 's2', stroke: 'green' },
+    { label: 's3', stroke: 'blue' },
+  ],
+})
+const data = ref<AlignedData>([[1654575670], [10], [10], [10]])
+</script>
 
-### Github Secrets
+<template>
+  <Uplot :options="options" :data="data" />
+</template>
+```
 
-[Github Token](https://github.com/settings/tokens) is required github changelog generator. You can create a token.  Select the `repo` scope. Then add the token to the repository secrets. 
+## Customizing
 
-`REPOCHANGELOG_TOKEN` - add the token to the repository secrets.
+You can use header and footer slots to add or customize the header and legend. Both slots receive the same props: series an array of series and toggleShow a function to toggle the show value of the series.
 
-### Renovate
+```vue
+<template>
+  <Uplot :options="options" :data="data">
+    <template #header>
+      <h2>Header</h2>
+    </template>
+    <template #footer="{ series, toggleShow }">
+      <div class="d-flex gap-3">
+        <div v-for="s in series" :key="s.label" class="legend-item" @click="toggleShow(s)">
+          <div class="badge" :style="{ backgroundColor: s.show ? s.stroke || 'var(--bs-secondary)' : 'lightgrey' }">
+            {{ s.label }} : {{ s.value || '--' }} {{ s.show }}
+          </div>
+        </div>
+      </div>
+    </template>
+  </Uplot>
+</template>
 
-[Setup Github App](https://github.com/apps/renovate) for Renovate.
+## Interacting with the uplot
 
-## License
+There are many examples of interacting with the chart in the [uplot demos](https://leeoniya.github.io/uPlot/demos/).
 
-This project is licensed under the [MIT License](LICENSE).
+The component emits events for series, cursor, and selection. You can use these events to get data from the component.
+
+One way to interact with the chart is to use the `ref` prop to get a reference to the uplot component that exposes the uplot instance. Then you can use the [uplot API](https://leeoniya.github.io/uPlot/docs/api.html) to interact with the chart.
+
+For more information see [App.vue in the repo](https://github.com/flow-tools/uplot/blob/main/src/App.vue).

@@ -8,7 +8,7 @@ import merge from '../utils/deepmerge'
 export type Options = Omit<Uplot.Options, 'height' | 'width'>
 export type AlignedData = Uplot.AlignedData
 
-export interface Serie {
+export interface Series {
   label: string | undefined
   stroke: string | null
   value: number | string | null | undefined
@@ -16,17 +16,28 @@ export interface Serie {
   show: boolean | undefined
 }
 
+export type Cursor = Uplot.Cursor
+export type Select = Uplot.Select
+
+export interface UplotElement extends Partial<HTMLElement> {
+  toggleShow: (serie: Series | number) => void
+  uplot: Uplot
+}
+
 interface UplotProps {
   options: Options
   data: Uplot.AlignedData
   resetScale?: boolean
   showDebug?: boolean
+  noFooter?: boolean
   zoom?: number[] | null[]
-  series?: Serie[]
+  series?: Series[]
 }
 
 const props = withDefaults(defineProps<UplotProps>(), {
   resetScale: false,
+  showDebug: false,
+  noFooter: false,
   zoom: () => [null, null],
 })
 
@@ -34,7 +45,7 @@ const emit = defineEmits<{
   (e: 'select', select: Uplot.Select): void
   (e: 'cursor', cursor: Uplot.Cursor): void
   (e: 'update:zoom', zoom: number[]): void
-  (e: 'update:series', series: Serie[]): void
+  (e: 'update:series', series: Series[]): void
 }>()
 const el = ref<HTMLElement>()
 const { width, height } = useElementSize(el)
@@ -106,12 +117,14 @@ const internalOptions: Omit<Options, 'series'> = {
 }
 
 let plot: Uplot
+const uplot = ref()
 
 function createUPlot() {
   if (plot)
     plot.destroy()
 
   plot = new Uplot({ width: 100, height: 100, ...(merge(props.options, internalOptions)) }, props.data, el.value)
+  uplot.value = plot
   if (props.zoom[0] !== null && props.zoom[1] !== null)
     plot.setScale('x', { min: props.zoom[0], max: props.zoom[1] })
 
@@ -163,13 +176,16 @@ function resize() {
     console.log('resize', plot)
 }
 
-function toggleShow(idx: number) {
+function toggleShow(idx: number | Series) {
+  if (typeof idx === 'object')
+    idx = series.value?.indexOf(idx) || -1
   plot.setSeries(idx, { show: !plot.series[idx].show })
   if (series.value?.[idx])
     series.value[idx].show = plot.series[idx].show
 }
 
-defineExpose({ toggleShow })
+// const uplot = computed(() => plot)
+defineExpose({ toggleShow, uplot })
 </script>
 
 <template>
@@ -185,7 +201,7 @@ defineExpose({ toggleShow })
     </div>
     <slot name="footer" :series="series" :toggle-show="toggleShow">
       <div class="__uplot-legend">
-        <div v-for="(s, i) in series" :key="s.label" class="__uplot-legend-serie" :class="[`__uplot-${s.label?.toLowerCase()}`, `__uplot-i-${i}`]" :style="{ backgroundColor: s.show ? '' : 'lightgrey' }" @click="toggleShow(i)">
+        <div v-for="(s, i) in series" :key="s.label" class="__uplot-legend-series" :class="[`__uplot-${s.label?.toLowerCase()}`, `__uplot-i-${i}`]" :style="{ backgroundColor: s.show ? '' : 'lightgrey' }" @click="toggleShow(i)">
           <span v-if="i !== 0" :style="{ color: s.stroke || 'black' }" class="__uplot-legend-label">{{ s.label }}</span>
           <span v-if="s.value" class="__uplot-legend-value">{{ s.value }}</span>
           <span v-else class="__uplot-legend-value">--</span>
@@ -229,7 +245,7 @@ defineExpose({ toggleShow })
   font-size: 10px;
 }
 
-.__uplot-legend-serie {
+.__uplot-legend-series {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;

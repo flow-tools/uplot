@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { AlignedData, Options, Serie } from './components/uplot.vue'
+import type { AlignedData, Cursor, Options, Select, Series, UplotElement } from './components/uplot.vue'
 import Uplot from './components/uplot.vue'
 
 const options = ref<Options>({
@@ -11,6 +11,18 @@ const options = ref<Options>({
     { label: 's3', stroke: 'blue' },
   ],
 })
+const noZoomOptions = ref<Options>({
+  series: [
+    {},
+    { label: 's1', stroke: 'red' },
+    { label: 's2', stroke: 'green' },
+    { label: 's3', stroke: 'blue' },
+  ],
+  cursor: {
+    drag: { setScale: false },
+  },
+})
+
 const data = ref<AlignedData>(
   [
     [1654575670],
@@ -60,15 +72,19 @@ setInterval(() => {
   }
 }, 1000)
 
-const myseries = ref<Serie[]>([])
-const thePlot = ref(null)
+const myseries = ref<Series[]>([])
+const cursor = ref<Cursor>()
+const select = ref<Select>()
+const thePlot = ref(null as unknown as UplotElement)
 </script>
 
 <template>
   <div class="container mb-5">
     <div class="row">
       <div class="col-auto border">
-        <textarea id="" name="" class="resize" />
+        <textarea id="" name="" class="resize">
+          Change the sizes of the textareaa and the plot to see the responsive behavior.
+        </textarea>
       </div>
       <div class="col border">
         <Uplot :options="options" :data="data" reset-scale />
@@ -82,7 +98,7 @@ const thePlot = ref(null)
         <Uplot v-model:zoom="zoom" :options="options" :data="data">
           <template #header="{ series, toggleShow }">
             <div class="d-flex gap-3">
-              <div v-for="s, i in series" :key="s.label" class="legend-item" @click="toggleShow(i)">
+              <div v-for="s in series" :key="s.label" class="legend-item" @click="toggleShow(s)">
                 <div class="badge badge" :style="{ backgroundColor: s.show ? s.stroke || 'var(--bs-secondary)' : 'lightgrey' }">
                   {{ s.label }} : {{ s.value || '--' }} {{ s.show }}
                 </div>
@@ -95,14 +111,33 @@ const thePlot = ref(null)
         </Uplot>
       </div>
     </div>
+
     <div class="row">
       <div class="col-auto border">
-        <div v-for="serie, index in myseries" :key="index" class="btn d-block m-1" :class="{ 'btn-primary': serie.show, 'btn-secondary': !serie.show }" @click="thePlot.toggleShow(index)">
-          {{ serie.label }}
+        <div v-for="series, index in myseries" :key="index" class="btn position-relative d-block m-1 mb-5" :class="{ 'btn-primary': series.show, 'btn-secondary': !series.show }" @click="thePlot.toggleShow(index)">
+          {{ series.label }}
+          <template v-if="series.value">
+            <div class="position-absolute top-100 end-0 border text-body bg-body text-nowrap p-1 rounded">
+              {{ series.value }}
+            </div>
+          </template>
         </div>
       </div>
       <div class="col border" style="min-height: 400px;">
-        <Uplot ref="thePlot" v-model:series="myseries" :options="options" :data="data" reset-scale />
+        <Uplot ref="thePlot" v-model:series="myseries" :options="noZoomOptions" :data="data" reset-scale @cursor="cursor = $event" @select="select = $event" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div>
+          cursor: {{ cursor }}
+        </div>
+        <div>
+          cursor to value: {{ thePlot?.uplot && thePlot.uplot.posToVal(cursor?.left || 0, 'x') }}
+        </div>
+        <div>
+          select: {{ select }}
+        </div>
       </div>
     </div>
     <button class="btn btn-primary" @click="addSeries()">
@@ -128,8 +163,8 @@ const thePlot = ref(null)
   overflow: auto;
   border: 1px red solid;
   padding: 1em;
-  min-width: 300px;
-  min-height: 300px;
+  min-width: 200px;
+  min-height: 200px;
 
 }
 </style>
