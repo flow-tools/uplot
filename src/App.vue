@@ -93,7 +93,9 @@ const thePlot = ref(null as unknown as UplotElement)
     </div>
     <div class="row">
       <div class="col-auto border">
-        <textarea id="" name="" class="resize" />
+        <textarea id="" name="" class="resize">
+          This plot doesn't reset the scale (zoom) when the data changes.
+        </textarea>
       </div>
       <div class="col border">
         <Uplot v-model:zoom="zoom" :options="options" :data="data">
