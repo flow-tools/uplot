@@ -199,7 +199,7 @@ defineExpose({ toggleShow, uplot })
       <br>
       <pre style="text-align: left;">{{ series }}</pre>
     </div>
-    <slot name="footer" :series="series" :toggle-show="toggleShow">
+    <slot v-if="!noFooter" name="footer" :series="series" :toggle-show="toggleShow">
       <div class="__uplot-legend">
         <div v-for="(s, i) in series" :key="s.label" class="__uplot-legend-series" :class="[`__uplot-${s.label?.toLowerCase()}`, `__uplot-i-${i}`]" :style="{ backgroundColor: s.show ? '' : 'lightgrey' }" @click="toggleShow(i)">
           <span v-if="i !== 0" :style="{ color: s.stroke || 'black' }" class="__uplot-legend-label">{{ s.label }}</span>

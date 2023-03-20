@@ -53,14 +53,15 @@ while (i < limit) {
 
 function addSeries() {
   // console.log('addSeries')
-  options.value.series.push({ label: `s${options.value.series.length}`, stroke: `#${Math.floor(Math.random() * 16777215).toString(16)}` })
+  const newSeries = { label: `s${options.value.series.length}`, stroke: `#${Math.floor(Math.random() * 16777215).toString(16)}` }
+  options.value.series.push(newSeries)
+  noZoomOptions.value.series.push(newSeries)
   let foo = (Math.random() - 0.5) * 100
   // @ts-expect-error don't know how to fix this
   data.value.push(data.value[1].map(() => {
     foo = foo + (Math.random() - 0.5) * 10
     return foo
   }))
-  newData()
 }
 setInterval(() => {
   newData()
@@ -124,7 +125,15 @@ const thePlot = ref(null as unknown as UplotElement)
         </div>
       </div>
       <div class="col border" style="min-height: 400px;">
-        <Uplot ref="thePlot" v-model:series="myseries" :options="noZoomOptions" :data="data" reset-scale @cursor="cursor = $event" @select="select = $event" />
+        <Uplot
+          ref="thePlot"
+          v-model:series="myseries"
+          :options="noZoomOptions"
+          :data="data"
+          reset-scale
+          no-footer
+          @cursor="cursor = $event" @select="select = $event"
+        />
       </div>
     </div>
     <div class="row">
