@@ -27,7 +27,7 @@ export interface UplotElement extends Partial<HTMLElement> {
 interface UplotProps {
   options: Options
   data: Uplot.AlignedData
-  resetScale?: boolean
+  noResetScale?: boolean
   showDebug?: boolean
   noFooter?: boolean
   zoom?: number[] | null[]
@@ -35,7 +35,7 @@ interface UplotProps {
 }
 
 const props = withDefaults(defineProps<UplotProps>(), {
-  resetScale: false,
+  noResetScale: false,
   showDebug: false,
   noFooter: false,
   zoom: () => [null, null],
@@ -144,7 +144,7 @@ watch([width, height], () => {
 })
 
 watch(props.data, (newValue) => {
-  if (props.resetScale) {
+  if (props.noResetScale) {
     plot.setData(newValue)
     return
   }

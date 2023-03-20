@@ -88,7 +88,7 @@ const thePlot = ref(null as unknown as UplotElement)
         </textarea>
       </div>
       <div class="col border">
-        <Uplot :options="options" :data="data" reset-scale />
+        <Uplot :options="options" :data="data" />
       </div>
     </div>
     <div class="row">
@@ -98,7 +98,7 @@ const thePlot = ref(null as unknown as UplotElement)
         </textarea>
       </div>
       <div class="col border">
-        <Uplot v-model:zoom="zoom" :options="options" :data="data">
+        <Uplot v-model:zoom="zoom" :options="options" :data="data" no-reset-scale>
           <template #header="{ series, toggleShow }">
             <div class="d-flex gap-3 flex-wrap">
               <div v-for="s in series" :key="s.label" class="legend-item" @click="toggleShow(s)">
@@ -132,7 +132,6 @@ const thePlot = ref(null as unknown as UplotElement)
           v-model:series="myseries"
           :options="noZoomOptions"
           :data="data"
-          reset-scale
           no-footer
           @cursor="cursor = $event" @select="select = $event"
         />
