@@ -98,7 +98,7 @@ const thePlot = ref(null as unknown as UplotElement)
       <div class="col border">
         <Uplot v-model:zoom="zoom" :options="options" :data="data">
           <template #header="{ series, toggleShow }">
-            <div class="d-flex gap-3">
+            <div class="d-flex gap-3 flex-wrap">
               <div v-for="s in series" :key="s.label" class="legend-item" @click="toggleShow(s)">
                 <div class="badge badge" :style="{ backgroundColor: s.show ? s.stroke || 'var(--bs-secondary)' : 'lightgrey' }">
                   {{ s.label }} : {{ s.value || '--' }} {{ s.show }}
