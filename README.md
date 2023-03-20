@@ -55,6 +55,7 @@ You can use header and footer slots to add or customize the header and legend. B
     </template>
   </Uplot>
 </template>
+```
 
 ## Interacting with the uplot
 
