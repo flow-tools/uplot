@@ -193,7 +193,6 @@ defineExpose({ toggleShow, uplot })
 
 <template>
   <div class="__uplot-root">
-    r {{ noResetScale }}
     <slot name="header" :series="series" :toggle-show="toggleShow" />
     <div ref="el" class="__uplot" />
     <div v-if="showDebug" class="extra-info">

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { Uplot } from '@root/index'
+import { Uplot } from '../src/index'
 
 const slotText = 'Test content'
 const props = {
