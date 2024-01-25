@@ -1,1 +1,1 @@
-export { default as Uplot } from './components/Uplot.vue'
+export { default as Uplot } from './components/uplot.vue'
