@@ -106,6 +106,8 @@ const internalOptions: Omit<Options, 'series'> = {
     ],
     setScale: [
       (u) => {
+        if (props.showDebug)
+          console.log('setScale', u.scales)
         // console.log('setScale', u)
         // debugger
         zoom.value = [
@@ -145,11 +147,11 @@ watch([width, height], () => {
 
 watch(props.data, (newValue) => {
   if (props.noResetScale) {
-    plot.setData(newValue)
+    plot.setData(newValue, false)
+    plot.redraw(false)
     return
   }
   plot.setData(newValue, true)
-  plot.redraw()
 })
 
 watch(props.options, (newValue, oldValue) => {
@@ -158,12 +160,13 @@ watch(props.options, (newValue, oldValue) => {
   createUPlot()
 })
 
-// watch(() => props.zoom, (newValue, oldValue) => {
-//   console.log('watch zoom', newValue, oldValue)
-//   if (newValue[0] !== null && newValue[1] !== null) {
-//     plot.setScale('x', {min: newValue[0], max: newValue[1]})
-//   }
-// })
+watch(() => props.zoom, (newValue, oldValue) => {
+  // console.log('watch zoom', newValue, oldValue)
+  if (newValue[0] !== null && newValue[1] !== null && (plot.scales.x.min !== newValue[0] || plot.scales.x.max !== newValue[1])) {
+    console.log('watch zoom setScale',plot.scales.x.min, newValue[0], plot.scales.x.max, newValue[1])
+    plot.setScale('x', {min: newValue[0], max: newValue[1]})
+  }
+})
 function resize() {
   // const title = el.value?.querySelector('.u-title')?.clientHeight
   // const label = el.value?.querySelector('.u-legend')?.clientHeight
@@ -190,6 +193,7 @@ defineExpose({ toggleShow, uplot })
 
 <template>
   <div class="__uplot-root">
+    r {{ noResetScale }}
     <slot name="header" :series="series" :toggle-show="toggleShow" />
     <div ref="el" class="__uplot" />
     <div v-if="showDebug" class="extra-info">

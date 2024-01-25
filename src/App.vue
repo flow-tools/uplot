@@ -77,6 +77,8 @@ const myseries = ref<Series[]>([])
 const cursor = ref<Cursor>()
 const select = ref<Select>()
 const thePlot = ref(null as unknown as UplotElement)
+const showDebug = ref(false)
+const noResetScale = ref(false)
 </script>
 
 <template>
@@ -95,10 +97,20 @@ const thePlot = ref(null as unknown as UplotElement)
       <div class="col-auto border">
         <textarea id="" name="" class="resize">
           This plot doesn't reset the scale (zoom) when the data changes.
-        </textarea>
+        </textarea> 
+        <br>
+        <button class="btn btn-primary" @click="showDebug = !showDebug">show debug</button>
+        <br>
+        <button class="btn btn-primary" @click="noResetScale = !noResetScale">toggle scale reset</button>
+        <br>
+        {{ noResetScale ? 'no scale reset' : 'scale reset' }}
+        <div> zoom: {{ zoom }}</div>
+    <button class="btn btn-primary" @click="zoom = [(zoom[0] || 0) + 24 * 60 * 60, (zoom[1] || 0) - 24 * 60 * 60]">
+      zoom
+    </button>
       </div>
       <div class="col border">
-        <Uplot v-model:zoom="zoom" :options="options" :data="data" no-reset-scale>
+        <Uplot v-model:zoom="zoom" :options="options" :data="data" :no-reset-scale="noResetScale" :show-debug="showDebug">
           <template #header="{ series, toggleShow }">
             <div class="d-flex gap-3 flex-wrap">
               <div v-for="s in series" :key="s.label" class="legend-item" @click="toggleShow(s)">
@@ -156,10 +168,7 @@ const thePlot = ref(null as unknown as UplotElement)
     <button class="btn btn-primary" @click="options.padding = [Math.random() * 50, Math.random() * 50, Math.random() * 50, Math.random() * 50]">
       random padding
     </button>
-    <div> {{ zoom }}</div>
-    <button class="btn btn-primary" @click="zoom = [(zoom[0] || 0) + 24 * 60 * 60, (zoom[1] || 0) - 24 * 60 * 60]">
-      zoom
-    </button>
+ 
     <div class="resize" style="height: 400px;">
       <Uplot :options="options" :data="data" />
     </div>
