@@ -15,7 +15,6 @@ export default defineConfig({
     dtsPlugin(),
     Vue({
       include: [/\.vue$/, /\.md$/],
-      reactivityTransform: true,
     }),
 
   ],
