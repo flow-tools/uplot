@@ -2,7 +2,6 @@
 
 ![Vue Typescript Bundle Template](https://github.com/productdevbookcom/assets/blob/main/vue-ts-bundle-template.jpg?raw=true)
 
-
 This is a template for creating a Typescript bundle. It is based on the [Typescript](https://www.typescriptlang.org/) compiler with the [Vite](https://vitejs.dev/) bundler.
 
 ## Features
@@ -19,7 +18,6 @@ This is a template for creating a Typescript bundle. It is based on the [Typescr
 - [x] [NPM Local Registry]()
 - [x] [Renovate]()
 
-
 ## Usage
 
 1. To use this template, click the "Use this template" button above.
@@ -35,7 +33,7 @@ This is a template for creating a Typescript bundle. It is based on the [Typescr
 
 ### Github Secrets
 
-[Github Token](https://github.com/settings/tokens) is required github changelog generator. You can create a token.  Select the `repo` scope. Then add the token to the repository secrets. 
+[Github Token](https://github.com/settings/tokens) is required github changelog generator. You can create a token.  Select the `repo` scope. Then add the token to the repository secrets.
 
 `REPOCHANGELOG_TOKEN` - add the token to the repository secrets.
 

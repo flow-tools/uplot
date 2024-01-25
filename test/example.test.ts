@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { Uplot } from '../src/index'
 
@@ -13,8 +13,8 @@ const props = {
   },
 }
 
-describe('Uplot', () => {
-  test('header render', () => {
+describe('uplot', () => {
+  it('header render', () => {
     const wrapper = mount(Uplot, {
       props,
       slots: {
@@ -25,7 +25,7 @@ describe('Uplot', () => {
     expect(wrapper.text()).toBe(slotText)
   })
 
-  test('footer render', () => {
+  it('footer render', () => {
     const wrapper = mount(Uplot, {
       props,
       slots: {

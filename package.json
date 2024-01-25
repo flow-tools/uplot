@@ -2,36 +2,40 @@
   "name": "@flowtools/uplot",
   "type": "module",
   "version": "0.0.10",
+  "packageManager": "pnpm@7.28.0",
   "description": "Modern vue component for uplot",
-  "keywords": [
-    "add keywords"
-  ],
+  "author": "Jukka Raimovaara <roska@mentalhouse.fi> (Mentalhouse Oy)",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/flow-tools",
   "homepage": "https://github.com/flow-tools/uplot",
-  "bugs": "https://github.com/flow-tools/uplot",
-  "author": "add author",
   "repository": {
     "type": "git",
     "url": "https://github.com/flow-tools/uplot.git"
   },
-  "funding": "https://github.com/sponsors/flow-tools",
-  "engines": {
-    "node": ">=16"
-  },
-  "packageManager": "pnpm@7.28.0",
+  "bugs": "https://github.com/flow-tools/uplot",
+  "keywords": [
+    "vue",
+    "uplot",
+    "chart",
+    "component"
+  ],
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js"
     },
     "./dist/style.css": "./dist/style.css"
   },
   "main": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "dist"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "vite build --mode production",
     "dev": "vite",
@@ -43,7 +47,6 @@
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage"
   },
-  "license": "MIT",
   "peerDependencies": {
     "@vueuse/core": "^9.13.0",
     "uplot": "^1.6.24",

@@ -8,7 +8,7 @@ type TIndexValue<T, K extends PropertyKey, D = never> = T extends any
   : never
 
 type TPartialKeys<T, K extends keyof T> = Omit<T, K> &
-Partial<Pick<T, K>> extends infer O
+  Partial<Pick<T, K>> extends infer O
   ? { [P in keyof O]: O[P] }
   : never
 
@@ -32,7 +32,7 @@ type TMerged<T> = [T] extends [Array<any>]
           : T
 
 // istanbul ignore next
-const isObject = (obj: any) => {
+function isObject(obj: any) {
   if (typeof obj === 'object' && obj !== null) {
     if (typeof Object.getPrototypeOf === 'function') {
       const prototype = Object.getPrototypeOf(obj)
@@ -49,8 +49,8 @@ interface IObject {
   [key: string]: any
 }
 
-const merge = <T extends IObject[]>(...objects: T): TMerged<T[number]> =>
-  objects.reduce((result, current) => {
+function merge<T extends IObject[]>(...objects: T): TMerged<T[number]> {
+  return objects.reduce((result, current) => {
     if (Array.isArray(current)) {
       throw new TypeError(
         'Arguments provided to ts-deepmerge must be objects, not arrays.',
@@ -76,6 +76,7 @@ const merge = <T extends IObject[]>(...objects: T): TMerged<T[number]> =>
 
     return result
   }, {}) as any
+}
 
 interface IOptions {
   mergeArrays: boolean

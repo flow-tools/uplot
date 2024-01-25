@@ -97,17 +97,21 @@ const noResetScale = ref(false)
       <div class="col-auto border">
         <textarea id="" name="" class="resize">
           This plot doesn't reset the scale (zoom) when the data changes.
-        </textarea> 
+        </textarea>
         <br>
-        <button class="btn btn-primary" @click="showDebug = !showDebug">show debug</button>
+        <button class="btn btn-primary" @click="showDebug = !showDebug">
+          show debug
+        </button>
         <br>
-        <button class="btn btn-primary" @click="noResetScale = !noResetScale">toggle scale reset</button>
+        <button class="btn btn-primary" @click="noResetScale = !noResetScale">
+          toggle scale reset
+        </button>
         <br>
         {{ noResetScale ? 'no scale reset' : 'scale reset' }}
         <div> zoom: {{ zoom }}</div>
-    <button class="btn btn-primary" @click="zoom = [(zoom[0] || 0) + 24 * 60 * 60, (zoom[1] || 0) - 24 * 60 * 60]">
-      zoom
-    </button>
+        <button class="btn btn-primary" @click="zoom = [(zoom[0] || 0) + 24 * 60 * 60, (zoom[1] || 0) - 24 * 60 * 60]">
+          zoom
+        </button>
       </div>
       <div class="col border">
         <Uplot v-model:zoom="zoom" :options="options" :data="data" :no-reset-scale="noResetScale" :show-debug="showDebug">
@@ -168,7 +172,7 @@ const noResetScale = ref(false)
     <button class="btn btn-primary" @click="options.padding = [Math.random() * 50, Math.random() * 50, Math.random() * 50, Math.random() * 50]">
       random padding
     </button>
- 
+
     <div class="resize" style="height: 400px;">
       <Uplot :options="options" :data="data" />
     </div>

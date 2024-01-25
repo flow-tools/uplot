@@ -1,42 +1,42 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "display": "Default",
-    "compilerOptions": {
-        "target": "esnext",
-        "useDefineForClassFields": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "isolatedModules": true,
-        "strict": true,
-        "jsx": "preserve",
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "lib": [
-            "esnext",
-            "dom"
-        ],
-        "skipLibCheck": true,
-        "outDir": "dist",
-        "noUnusedLocals": true,
-        "strictNullChecks": true,
-        "types": [
-            "vue",
-            "vite/client"
-        ],
-        "paths": {
-            "@root/*": [
-                "./src/*"
-            ]
-        }
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
+  "compilerOptions": {
+    "target": "esnext",
+    "jsx": "preserve",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "paths": {
+      "@root/*": [
+        "./src/*"
+      ]
     },
-    "vueCompilerOptions": {
-        "plugins": [
-        ]
-    },
-    "include": [
-        "vite.config.*",
-        "src/**/*",
-        "test/**/*"
+    "resolveJsonModule": true,
+    "types": [
+      "vue",
+      "vite/client"
+    ],
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "vueCompilerOptions": {
+    "plugins": [
     ]
+  },
+  "include": [
+    "vite.config.*",
+    "src/**/*",
+    "test/**/*"
+  ]
 }

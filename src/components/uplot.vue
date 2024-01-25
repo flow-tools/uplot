@@ -114,7 +114,8 @@ const internalOptions: Omit<Options, 'series'> = {
           u.scales.x.min || null,
           u.scales.x.max || null,
         ] as number[] | null[]
-      }],
+      },
+    ],
   },
 }
 
@@ -160,11 +161,11 @@ watch(props.options, (newValue, oldValue) => {
   createUPlot()
 })
 
-watch(() => props.zoom, (newValue, oldValue) => {
+watch(() => props.zoom, (newValue) => {
   // console.log('watch zoom', newValue, oldValue)
   if (newValue[0] !== null && newValue[1] !== null && (plot.scales.x.min !== newValue[0] || plot.scales.x.max !== newValue[1])) {
-    console.log('watch zoom setScale',plot.scales.x.min, newValue[0], plot.scales.x.max, newValue[1])
-    plot.setScale('x', {min: newValue[0], max: newValue[1]})
+    console.log('watch zoom setScale', plot.scales.x.min, newValue[0], plot.scales.x.max, newValue[1])
+    plot.setScale('x', { min: newValue[0], max: newValue[1] })
   }
 })
 function resize() {
