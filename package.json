@@ -55,7 +55,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.3",
     "@vitejs/plugin-vue": "^5.0.3",
-    "@vitest/coverage-c8": "^0.33.0",
+    "@vitest/coverage-v8": "^1.2.1",
     "@vue/test-utils": "^2.4.3",
     "@vueuse/core": "^10.7.2",
     "bumpp": "^9.3.0",
