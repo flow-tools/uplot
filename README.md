@@ -14,9 +14,9 @@ pnpm add @flowtools/uplot uplot @vueuse/core
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { AlignedData, Options } from '@flowtools/uplot'
 import { Uplot } from '@flowtools/uplot'
+import { ref } from 'vue'
 
 const options = ref<Options>({
   series: [

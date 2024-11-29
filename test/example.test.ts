@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { Uplot } from '../src'
 
 const slotText = 'Test content'
 const props = {
-  data: [[1, 2, 3], [1, 2, 3]],
+  data: [new Float64Array([1, 2, 3]), new Float64Array([1, 2, 3])],
   options: {
     series: [
       {},

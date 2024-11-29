@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Uplot from 'uplot'
-import 'uplot/dist/uPlot.min.css'
 import { useElementSize, useVModel } from '@vueuse/core'
+import Uplot from 'uplot'
 import { nextTick, onMounted, ref, watch } from 'vue'
 import merge from '../utils/deepmerge'
+import 'uplot/dist/uPlot.min.css'
 
 export type Options = Omit<Uplot.Options, 'height' | 'width'>
 export type AlignedData = Uplot.AlignedData

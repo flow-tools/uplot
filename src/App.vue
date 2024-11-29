@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { AlignedData, Cursor, Options, Select, Series, UplotElement } from './components/uplot.vue'
+import { ref } from 'vue'
 import Uplot from './components/uplot.vue'
 
 const options = ref<Options>({
