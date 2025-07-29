@@ -1,7 +1,7 @@
 {
   "name": "@flowtools/uplot",
   "type": "module",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "packageManager": "pnpm@10.13.1",
   "description": "Modern vue component for uplot",
   "author": "Jukka Raimovaara <roska@mentalhouse.fi> (Mentalhouse Oy)",
