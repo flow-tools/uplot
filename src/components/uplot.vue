@@ -1,7 +1,8 @@
+<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { useElementSize, useVModel } from '@vueuse/core'
+import { useElementSize } from '@vueuse/core'
 import Uplot from 'uplot'
-import { nextTick, onMounted, ref, watch } from 'vue'
+import { defineModel, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
 import merge from '../utils/deepmerge'
 import 'uplot/dist/uPlot.min.css'
 
@@ -24,36 +25,29 @@ export interface UplotElement extends Partial<HTMLElement> {
   uplot: Uplot
 }
 
-interface UplotProps {
+export interface UplotProps {
   options: Options
   data: Uplot.AlignedData
   noResetScale?: boolean
   showDebug?: boolean
   noFooter?: boolean
-  zoom?: number[] | null[]
-  series?: Series[]
 }
 
 const props = withDefaults(defineProps<UplotProps>(), {
   noResetScale: false,
   showDebug: false,
   noFooter: false,
-  zoom: () => [null, null],
 })
 
 const emit = defineEmits<{
   (e: 'select', select: Uplot.Select): void
   (e: 'cursor', cursor: Uplot.Cursor): void
-  (e: 'update:zoom', zoom: number[]): void
-  (e: 'update:series', series: Series[]): void
 }>()
-const el = ref<HTMLElement>()
+const el = useTemplateRef('el')
 const { width, height } = useElementSize(el)
 
-// const series = ref<Serie[]>([])
-
-const zoom = useVModel(props, 'zoom', emit, { passive: true })
-const series = useVModel(props, 'series', emit, { passive: true })
+const zoom = defineModel<number[] | null[]>('zoom', { default: () => [null, null] })
+const series = defineModel<Series[]>('series', { default: () => [] })
 
 const internalOptions: Omit<Options, 'series'> = {
   title: undefined,
@@ -67,7 +61,7 @@ const internalOptions: Omit<Options, 'series'> = {
           console.log('init', u)
         // debugger
         series.value = u.series.map((s, i) => ({
-          label: s.label,
+          label: s.label as string,
           stroke: typeof s.stroke === 'function' ? s.stroke(u, i) as string : null,
           value: null,
           data: null,
@@ -83,7 +77,7 @@ const internalOptions: Omit<Options, 'series'> = {
         // console.log(props.data[0] === u.data[0])
         // debugger
         series.value = u.series.map((s, i) => ({
-          label: s.label,
+          label: s.label as string,
           stroke: typeof s.stroke === 'function' ? s.stroke(u, i) as string : null,
           value: (u.cursor.idx && u.data[i][u.cursor.idx]) ? (typeof s.value === 'function' ? s.value(u, u.data[i][u.cursor.idx] as number, i, u.cursor.idx) : u.data[i][u.cursor.idx]) : null,
           data: u.cursor?.idx ? u.data[i][u.cursor?.idx] : null,
@@ -126,10 +120,10 @@ function createUPlot() {
   if (plot)
     plot.destroy()
 
-  plot = new Uplot({ width: 100, height: 100, ...(merge(props.options, internalOptions)) }, props.data, el.value)
+  plot = new Uplot({ width: 100, height: 100, ...(merge(props.options, internalOptions)) }, props.data, el.value as HTMLElement)
   uplot.value = plot
-  if (props.zoom[0] !== null && props.zoom[1] !== null)
-    plot.setScale('x', { min: props.zoom[0], max: props.zoom[1] })
+  if (zoom.value && zoom.value[0] !== null && zoom.value[1] !== null)
+    plot.setScale('x', { min: zoom.value[0], max: zoom.value[1] })
 
   setTimeout(() => {
     resize()
@@ -161,10 +155,11 @@ watch(props.options, (newValue, oldValue) => {
   createUPlot()
 })
 
-watch(() => props.zoom, (newValue) => {
+watch(() => zoom.value, (newValue) => {
   // console.log('watch zoom', newValue, oldValue)
-  if (newValue[0] !== null && newValue[1] !== null && (plot.scales.x.min !== newValue[0] || plot.scales.x.max !== newValue[1])) {
-    console.log('watch zoom setScale', plot.scales.x.min, newValue[0], plot.scales.x.max, newValue[1])
+  if (newValue && newValue[0] !== null && newValue[1] !== null && (plot.scales.x.min !== newValue[0] || plot.scales.x.max !== newValue[1])) {
+    if (props.showDebug)
+      console.log('watch zoom setScale', plot.scales.x.min, newValue[0], plot.scales.x.max, newValue[1])
     plot.setScale('x', { min: newValue[0], max: newValue[1] })
   }
 })

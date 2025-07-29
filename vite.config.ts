@@ -38,6 +38,11 @@ export default defineConfig({
     rollupOptions: {
       external: externals,
       output: {
+        globals: {
+          'vue': 'Vue',
+          'uplot': 'uPlot',
+          '@vueuse/core': 'VueUseCore',
+        },
         format: 'esm',
       },
     },

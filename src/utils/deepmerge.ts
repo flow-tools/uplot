@@ -7,21 +7,21 @@ type TIndexValue<T, K extends PropertyKey, D = never> = T extends any
     : D
   : never
 
-type TPartialKeys<T, K extends keyof T> = Omit<T, K> &
-Partial<Pick<T, K>> extends infer O
+type TPartialKeys<T, K extends keyof T> = Omit<T, K>
+  & Partial<Pick<T, K>> extends infer O
   ? { [P in keyof O]: O[P] }
   : never
 
 type TFunction = (...a: any[]) => any
 
-type TPrimitives =
-  | string
-  | number
-  | boolean
-  | bigint
-  | symbol
-  | Date
-  | TFunction
+type TPrimitives
+  = | string
+    | number
+    | boolean
+    | bigint
+    | symbol
+    | Date
+    | TFunction
 
 type TMerged<T> = [T] extends [Array<any>]
   ? { [K in keyof T]: TMerged<T[K]> }
