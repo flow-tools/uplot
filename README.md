@@ -10,6 +10,14 @@
 pnpm add @flowtools/uplot uplot @vueuse/core
 ```
 
+```shell
+npm install @flowtools/uplot uplot @vueuse/core
+```
+
+```shell
+yarn add @flowtools/uplot uplot @vueuse/core
+```
+
 ## Usage
 
 Import css
