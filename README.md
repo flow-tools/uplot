@@ -4,13 +4,19 @@
 
 [StackBlitz](https://stackblitz.com/edit/vitejs-vite-dhtmxj?file=src/App.vue)
 
-## usage
+## Install
 
 ```shell
 pnpm add @flowtools/uplot uplot @vueuse/core
 ```
 
 ## Usage
+
+Import css
+```ts
+// main.ts
+import '@flowtools/uplot/dist/uplot.css'
+```
 
 ```vue
 <script setup lang="ts">

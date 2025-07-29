@@ -24,7 +24,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/style.css": "./dist/uplot.css"
   },
   "main": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
@@ -71,7 +71,7 @@
     "vite": "^7.0.6",
     "vite-plugin-dts": "^4.3.0",
     "vitest": "^3.2.4",
-    "vue": "^3.5.13"
+    "vue": "^3.5.18"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
