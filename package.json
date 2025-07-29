@@ -24,7 +24,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js"
     },
-    "./dist/style.css": "./dist/uplot.css"
+    "./dist/uplot.css": "./dist/uplot.css"
   },
   "main": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
