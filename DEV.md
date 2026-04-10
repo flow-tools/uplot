@@ -14,9 +14,9 @@ This is a template for creating a Typescript bundle. It is based on the [Typescr
 - [x] [Bumpp](https://github.com/antfu/bumpp) github changelog generator
 - [x] [Vitest](https://vitest.dev/)
 - [x] [Pnpm](https://pnpm.io/)
-- [x] [GitHub Actions]()
-- [x] [NPM Local Registry]()
-- [x] [Renovate]()
+- [x] GitHub Actions
+- [x] NPM Local Registry
+- [x] Renovate
 
 ## Usage
 
@@ -33,7 +33,7 @@ This is a template for creating a Typescript bundle. It is based on the [Typescr
 
 ### Github Secrets
 
-[Github Token](https://github.com/settings/tokens) is required github changelog generator. You can create a token.  Select the `repo` scope. Then add the token to the repository secrets.
+[Github Token](https://github.com/settings/tokens) is required github changelog generator. You can create a token. Select the `repo` scope. Then add the token to the repository secrets.
 
 `REPOCHANGELOG_TOKEN` - add the token to the repository secrets.
 
